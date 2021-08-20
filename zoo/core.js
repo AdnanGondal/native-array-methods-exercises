@@ -1,47 +1,71 @@
-function entryCalculator (entrants) {
-  // your code here
-};
+const zooData = require("./data");
 
-function schedule (dayName) {
-  // your code here
-};
+function entryCalculator(entrants) {
+  if (!entrants) return 0;
+  const keys = Object.keys(entrants);
+  const values = Object.values(entrants);
+  const prices = zooData.prices;
 
-function animalCount (species) {
-  // your code here
-};
+  return values.reduce((tot, val, i) => tot + val * prices[keys[i]], 0);
+}
 
-function animalMap (options) {
-  // your code here
-};
+function schedule(dayName) {
+  const openingHours = zooData.hours;
+  const daysOfWeek = Object.keys(openingHours);
 
-function animalPopularity (rating) {
-  // your code here
-};
+  const readable = daysOfWeek.reduce((obj, day) => {
+    if (day === "Monday") {
+      obj[day] = "CLOSED";
+      return obj;
+    } else {
+      obj[day] =
+        "Open from " +
+        openingHours[day].open +
+        "am until " +
+        (openingHours[day].close - 12) +
+        "pm";
+    }
+    return obj;
+  }, {});
 
-function animalsByIds (ids) {
-  // your code here
-};
+  if (dayName) {
+    return { [dayName]: readable[dayName] };
+  } else return readable;
+}
 
-function animalByName (animalName) {
-  // your code here
-};
+function animalCount(species) {}
 
-function employeesByIds (ids) {
+function animalMap(options) {
   // your code here
-};
+}
 
-function employeeByName (employeeName) {
+function animalPopularity(rating) {
   // your code here
-};
+}
 
-function managersForEmployee (idOrName) {
+function animalsByIds(ids) {
   // your code here
-};
+}
 
-function employeeCoverage (idOrName) {
+function animalByName(animalName) {
   // your code here
-};
+}
 
+function employeesByIds(ids) {
+  // your code here
+}
+
+function employeeByName(employeeName) {
+  // your code here
+}
+
+function managersForEmployee(idOrName) {
+  // your code here
+}
+
+function employeeCoverage(idOrName) {
+  // your code here
+}
 
 module.exports = {
   entryCalculator: entryCalculator,
@@ -54,5 +78,5 @@ module.exports = {
   employeesByIds: employeesByIds,
   employeeByName: employeeByName,
   managersForEmployee: managersForEmployee,
-  employeeCoverage: employeeCoverage
-}
+  employeeCoverage: employeeCoverage,
+};
